@@ -10,8 +10,6 @@ type ScreenStep = 'intro' | 'experience';
 
 export default function EntryExperience() {
   const [currentScreen, setCurrentScreen] = useState<ScreenStep>('intro');
-  const [isIntroExiting, setIsIntroExiting] = useState(false);
-  const [isWarping, setIsWarping] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
 
   // Sync mute state and ensure website default music is active across both screens
@@ -43,20 +41,11 @@ export default function EntryExperience() {
   const handleExploreClick = () => {
     ambientAudio.ensureRunning();
     ambientAudio.playClickSound();
+    // Seamless cinematic music shift
     ambientAudio.playWarpSwell();
 
-    setIsIntroExiting(true);
-    setIsWarping(true);
-
-    // Transition into UHD Video + Login Screen
-    setTimeout(() => {
-      ambientAudio.setSynthActive(true);
-      setCurrentScreen('experience');
-    }, 900);
-
-    setTimeout(() => {
-      setIsWarping(false);
-    }, 1500);
+    // Smoothly 3D animate directly to the login form screen with zero blackout or grey gap
+    setCurrentScreen('experience');
   };
 
   return (
@@ -69,9 +58,6 @@ export default function EntryExperience() {
         backgroundColor: '#000000',
       }}
     >
-      {/* 3D Warp Fly-Through Illusion Overlay */}
-      {isWarping && <div className="warp-illusion-overlay" aria-hidden="true" />}
-
       {/* Editorial HUD metadata overlay - All text in crisp white */}
       <header className="editorial-hud editorial-hud-white" aria-label="Portfolio Interface Metadata">
         <div className="hud-top">
@@ -122,82 +108,97 @@ export default function EntryExperience() {
         </div>
       </header>
 
+      {/* SCREEN 02: 4K UHD TERRAIN VIDEO WITH INTEGRATED LOGIN FORM (Pre-mounted underneath for zero gap) */}
+      <div
+        className="screen-wrapper"
+        style={{
+          zIndex: currentScreen === 'experience' ? 20 : 5,
+          opacity: currentScreen === 'experience' ? 1 : 0,
+          transform:
+            currentScreen === 'experience'
+              ? 'perspective(1200px) translateZ(0) scale(1)'
+              : 'perspective(1200px) translateZ(-60px) scale(0.96)',
+          transition:
+            'opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          pointerEvents: currentScreen === 'experience' ? 'auto' : 'none',
+        }}
+      >
+        <VideoContinuation>
+          <LoginScreen />
+        </VideoContinuation>
+      </div>
+
       {/* SCREEN 01: LET'S EXPLORE SCREEN WITH UHD VIDEO BACKGROUND */}
-      {currentScreen === 'intro' && (
-        <div
-          className={`screen-wrapper screen-active ${isIntroExiting ? 'intro-exiting' : ''}`}
-          style={{ zIndex: 10 }}
-        >
-          {/* UHD Video Background: 8679945-uhd_4096_2160_25fps.mp4 */}
-          <div className="intro-video-container">
-            <video
-              src="/assets/video/8679945-uhd_4096_2160_25fps.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              className="intro-video-bg"
-            />
-          </div>
-
-          {/* "Let's Explore" Button in Exact Middle of the Screen */}
-          <div className="cta-explore-middle-wrapper">
-            <button
-              id="cta-explore-btn"
-              onClick={handleExploreClick}
-              onMouseEnter={() => ambientAudio.playHoverSound()}
-              className="cta-explore-btn cta-explore-btn-middle"
-              aria-label="Let's Explore Portfolio Entry"
-            >
-              <span>Let&apos;s Explore</span>
-              <ArrowUpRight className="cta-arrow-icon" />
-            </button>
-          </div>
-
-          {/* Floating "Recent Project" Live Production Card */}
-          <div className="intro-recent-project-card">
-            <div className="recent-card-badge">
-              <span className="recent-card-dot" />
-              <span>LIVE PRODUCTION // 2026</span>
-            </div>
-            <div className="recent-card-body">
-              <div className="recent-card-thumb">
-                <img
-                  src="/assets/live/amber-glass.jpg"
-                  alt="ElloMed — Healthcare AI Platform"
-                  className="recent-thumb-img"
-                />
-              </div>
-              <div className="recent-card-meta">
-                <h4 className="recent-card-title">ElloMed Healthcare AI</h4>
-                <span className="recent-card-tag">Clinic Operations &amp; EHR SaaS</span>
-              </div>
-            </div>
-            <button
-              onClick={handleExploreClick}
-              className="recent-card-cta"
-              onMouseEnter={() => ambientAudio.playHoverSound()}
-            >
-              <span>Explore Live Project</span>
-              <ArrowUpRight size={13} />
-            </button>
-          </div>
+      <div
+        className="screen-wrapper"
+        style={{
+          zIndex: currentScreen === 'intro' ? 10 : 1,
+          opacity: currentScreen === 'intro' ? 1 : 0,
+          transform:
+            currentScreen === 'intro'
+              ? 'perspective(1200px) translateZ(0) scale(1)'
+              : 'perspective(1200px) translateZ(120px) scale(1.08)',
+          transition:
+            'opacity 1.0s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+          pointerEvents: currentScreen === 'intro' ? 'auto' : 'none',
+        }}
+      >
+        {/* UHD Video Background: 8679945-uhd_4096_2160_25fps.mp4 */}
+        <div className="intro-video-container">
+          <video
+            src="/assets/video/8679945-uhd_4096_2160_25fps.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="intro-video-bg"
+          />
         </div>
-      )}
 
-      {/* SCREEN 02: 4K UHD TERRAIN VIDEO WITH INTEGRATED LOGIN FORM */}
-      {currentScreen === 'experience' && (
-        <div
-          className="screen-wrapper screen-active"
-          style={{ zIndex: 20 }}
-        >
-          <VideoContinuation>
-            {/* Login form directly on the video screen */}
-            <LoginScreen />
-          </VideoContinuation>
+        {/* "Let's Explore" Button in Exact Middle of the Screen */}
+        <div className="cta-explore-middle-wrapper">
+          <button
+            id="cta-explore-btn"
+            onClick={handleExploreClick}
+            onMouseEnter={() => ambientAudio.playHoverSound()}
+            className="cta-explore-btn cta-explore-btn-middle"
+            aria-label="Let's Explore Portfolio Entry"
+          >
+            <span>Let&apos;s Explore</span>
+            <ArrowUpRight className="cta-arrow-icon" />
+          </button>
         </div>
-      )}
+
+        {/* Floating "Recent Project" Live Production Card */}
+        <div className="intro-recent-project-card">
+          <div className="recent-card-badge">
+            <span className="recent-card-dot" />
+            <span>LIVE PRODUCTION // 2026</span>
+          </div>
+          <div className="recent-card-body">
+            <div className="recent-card-thumb">
+              <img
+                src="/assets/live/amber-glass.jpg"
+                alt="ElloMed — Healthcare AI Platform"
+                className="recent-thumb-img"
+              />
+            </div>
+            <div className="recent-card-meta">
+              <h4 className="recent-card-title">ElloMed Healthcare AI</h4>
+              <span className="recent-card-tag">Clinic Operations &amp; EHR SaaS</span>
+            </div>
+          </div>
+          <button
+            onClick={handleExploreClick}
+            className="recent-card-cta"
+            onMouseEnter={() => ambientAudio.playHoverSound()}
+          >
+            <span>Explore Live Project</span>
+            <ArrowUpRight size={13} />
+          </button>
+        </div>
+      </div>
     </main>
   );
 }
