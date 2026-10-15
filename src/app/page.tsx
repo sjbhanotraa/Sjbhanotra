@@ -63,10 +63,11 @@ export default function EntryExperience() {
         <div className="hud-top">
           <div className="hud-label">
             <span className="hud-indicator-dot" />
-            {currentScreen === 'intro' ? 'PORTFOLIO // EXPLORE READY' : 'ACCESS VERIFICATION // GATEWAY'}
+            <span className="hud-text-desktop">{currentScreen === 'intro' ? 'PORTFOLIO // EXPLORE READY' : 'ACCESS VERIFICATION // GATEWAY'}</span>
+            <span className="hud-text-mobile">PORTFOLIO // 2026</span>
           </div>
 
-          <div className="hud-center-code">
+          <div className="hud-center-code hud-center-desktop">
             {currentScreen === 'intro'
               ? 'AMBIENT SOUND ENGINE // RUNNING'
               : 'PHASE 02 — SECURE SESSION'}
@@ -94,16 +95,18 @@ export default function EntryExperience() {
         </div>
 
         <div className="hud-bottom">
-          <div className="hud-label">
-            {currentScreen === 'intro' ? 'DEFAULT SITE MUSIC // ACTIVE' : '4K TERRAIN ENGINE // ACTIVE'}
+          <div className="hud-label hud-bottom-left">
+            <span className="hud-text-desktop">{currentScreen === 'intro' ? 'DEFAULT SITE MUSIC // ACTIVE' : '4K TERRAIN ENGINE // ACTIVE'}</span>
+            <span className="hud-text-mobile">SANJANA SHARMA</span>
           </div>
 
-          <div className="hud-center-code">
+          <div className="hud-center-code hud-center-desktop">
             {currentScreen === 'intro' ? 'SANJANA SHARMA PORTFOLIO' : 'SECURE SESSION IDENTIFIER: 8803100375'}
           </div>
 
-          <div className="hud-label">
-            SINGLE USER GATEWAY
+          <div className="hud-label hud-bottom-right">
+            <span className="hud-text-desktop">SINGLE USER GATEWAY</span>
+            <span className="hud-text-mobile">SINGLE GATEWAY</span>
           </div>
         </div>
       </header>
@@ -156,47 +159,49 @@ export default function EntryExperience() {
           />
         </div>
 
-        {/* "Let's Explore" Button in Exact Middle of the Screen */}
-        <div className="cta-explore-middle-wrapper">
-          <button
-            id="cta-explore-btn"
-            onClick={handleExploreClick}
-            onMouseEnter={() => ambientAudio.playHoverSound()}
-            className="cta-explore-btn cta-explore-btn-middle"
-            aria-label="Let's Explore Portfolio Entry"
-          >
-            <span>Let&apos;s Explore</span>
-            <ArrowUpRight className="cta-arrow-icon" />
-          </button>
-        </div>
+        {/* Explore Flow Center Container: "Let's Explore" Button + Live Project Card After Button on Mobile */}
+        <div className="explore-main-center-flow">
+          <div className="cta-explore-middle-wrapper">
+            <button
+              id="cta-explore-btn"
+              onClick={handleExploreClick}
+              onMouseEnter={() => ambientAudio.playHoverSound()}
+              className="cta-explore-btn cta-explore-btn-middle"
+              aria-label="Let's Explore Portfolio Entry"
+            >
+              <span>Let&apos;s Explore</span>
+              <ArrowUpRight className="cta-arrow-icon" />
+            </button>
+          </div>
 
-        {/* Floating "Recent Project" Live Production Card */}
-        <div className="intro-recent-project-card">
-          <div className="recent-card-badge">
-            <span className="recent-card-dot" />
-            <span>LIVE PRODUCTION // 2026</span>
-          </div>
-          <div className="recent-card-body">
-            <div className="recent-card-thumb">
-              <img
-                src="/assets/live/amber-glass.jpg"
-                alt="ElloMed — Healthcare AI Platform"
-                className="recent-thumb-img"
-              />
+          {/* "Recent Project" Live Production Card: Bottom Right on Desktop, Directly After Button on Mobile */}
+          <div className="intro-recent-project-card">
+            <div className="recent-card-badge">
+              <span className="recent-card-dot" />
+              <span>LIVE PRODUCTION // 2026</span>
             </div>
-            <div className="recent-card-meta">
-              <h4 className="recent-card-title">ElloMed Healthcare AI</h4>
-              <span className="recent-card-tag">Clinic Operations &amp; EHR SaaS</span>
+            <div className="recent-card-body">
+              <div className="recent-card-thumb">
+                <img
+                  src="/assets/live/amber-glass.jpg"
+                  alt="ElloMed — Healthcare AI Platform"
+                  className="recent-thumb-img"
+                />
+              </div>
+              <div className="recent-card-meta">
+                <h4 className="recent-card-title">ElloMed Healthcare AI</h4>
+                <span className="recent-card-tag">Clinic Operations &amp; EHR SaaS</span>
+              </div>
             </div>
+            <button
+              onClick={handleExploreClick}
+              className="recent-card-cta"
+              onMouseEnter={() => ambientAudio.playHoverSound()}
+            >
+              <span>Explore Live Project</span>
+              <ArrowUpRight size={13} />
+            </button>
           </div>
-          <button
-            onClick={handleExploreClick}
-            className="recent-card-cta"
-            onMouseEnter={() => ambientAudio.playHoverSound()}
-          >
-            <span>Explore Live Project</span>
-            <ArrowUpRight size={13} />
-          </button>
         </div>
       </div>
     </main>

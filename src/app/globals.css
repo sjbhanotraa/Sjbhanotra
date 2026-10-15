@@ -138,9 +138,51 @@ input {
   padding: 2.5rem 3rem;
 }
 
+.hud-text-desktop {
+  display: inline;
+}
+
+.hud-text-mobile {
+  display: none;
+}
+
+.hud-center-desktop {
+  display: block;
+}
+
 @media (max-width: 768px) {
   .editorial-hud {
-    padding: 1.5rem;
+    padding: 1.15rem 1.15rem !important;
+  }
+  .hud-top {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  .hud-bottom {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  .hud-text-desktop {
+    display: none !important;
+  }
+  .hud-text-mobile {
+    display: inline !important;
+  }
+  .hud-center-desktop {
+    display: none !important;
+  }
+  .editorial-hud-white .hud-label {
+    font-size: 0.625rem !important;
+    letter-spacing: 0.12em !important;
+    white-space: nowrap !important;
+  }
+  .editorial-hud-white .static-hud-mute-btn {
+    width: 34px !important;
+    height: 34px !important;
   }
 }
 
@@ -459,36 +501,97 @@ input {
   transform: translateX(2px);
 }
 
-/* Middle Centered Explore CTA Wrapper */
-.cta-explore-middle-wrapper {
+/* Explore Main Center Flow */
+.explore-main-center-flow {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Middle Centered Explore CTA Wrapper */
+.cta-explore-middle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Bottom-Right Floating "Recent Project" Card - overlays any watermark and provides editorial context */
+/* Bottom-Right Floating "Recent Project" Card - desktop fixed, mobile stacked after button */
 .intro-recent-project-card {
-  position: absolute;
-  bottom: 1.75rem;
-  right: 1.75rem;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
   z-index: 25;
   background: rgba(18, 20, 26, 0.88);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 20px;
   padding: 1rem 1.15rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  width: 270px;
+  width: 280px;
   box-shadow: 
     0 20px 45px -5px rgba(0, 0, 0, 0.5),
     0 4px 14px rgba(249, 115, 22, 0.2);
   transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .explore-main-center-flow {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.35rem;
+    width: calc(100% - 2.5rem);
+    max-width: 320px;
+    pointer-events: none;
+    z-index: 30;
+  }
+
+  .explore-main-center-flow > * {
+    pointer-events: auto;
+  }
+
+  .cta-explore-middle-wrapper {
+    position: static;
+    transform: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-explore-btn,
+  .cta-explore-btn-middle {
+    width: auto !important;
+    max-width: 100% !important;
+    padding: 0.95rem 2.2rem !important;
+    font-size: 0.8125rem !important;
+    letter-spacing: 0.16em !important;
+    white-space: nowrap !important;
+  }
+
+  .intro-recent-project-card {
+    position: static !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 310px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 18px !important;
+  }
 }
 
 .intro-recent-project-card:hover {
@@ -617,8 +720,14 @@ input {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.18em;
+  white-space: nowrap !important;
   transition: all var(--transition-normal);
   user-select: none;
+}
+
+.cta-explore-btn span {
+  white-space: nowrap !important;
+  display: inline-block;
 }
 
 .cta-explore-btn-middle {
@@ -626,6 +735,7 @@ input {
   font-size: 0.875rem;
   font-weight: 700;
   letter-spacing: 0.2em;
+  white-space: nowrap !important;
   color: #FFFFFF !important;
   background: rgba(14, 16, 22, 0.68);
   backdrop-filter: blur(24px);
@@ -4944,54 +5054,109 @@ div[data-nextjs-route-announcer],
   }
   
   /* Contact Section on Mobile */
-  .contact-3d-room-wrapper {
-    padding: 7rem 1rem 3rem !important;
+  .portfolio-app-root.mode-contact {
+    height: auto !important;
+    min-height: 100vh !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
   }
-  .contact-top-stats-card {
-    flex-direction: column !important;
-    gap: 1.25rem !important;
-    align-items: flex-start !important;
-    padding: 1.25rem !important;
-  }
-  .top-stats-center {
+  .contact-section {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 4.5rem 0.85rem 1.25rem !important;
+    overflow-x: hidden !important;
     width: 100% !important;
-    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+  .contact-3d-room-wrapper {
+    padding: 0 0 0.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
   }
   .contact-cards-layout {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
   }
   .contact-left-card {
-    min-height: 380px !important;
-    padding: 1.5rem !important;
+    min-height: 250px !important;
+    height: auto !important;
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .left-card-header {
+    margin-top: 1rem !important;
+    max-width: 100% !important;
+  }
+  .left-card-title {
+    font-size: 1.65rem !important;
+  }
+  .left-card-description {
+    font-size: 0.8rem !important;
+    margin-top: 0.5rem !important;
   }
   .contact-right-card {
-    padding: 1.5rem !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .right-card-body {
+    max-width: 100% !important;
+    margin: 0.5rem 0 !important;
+  }
+  .right-card-headline {
+    font-size: 0.95rem !important;
   }
   .vertical-adaptability-track {
     display: none !important;
   }
   .form-row {
+    display: flex !important;
     flex-direction: column !important;
-    gap: 0.85rem !important;
+    gap: 0.5rem !important;
   }
   .contact-submit-room-btn {
     width: 100% !important;
     justify-content: center !important;
   }
+  .right-card-tags-footer {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.65rem !important;
+    padding-top: 0.75rem !important;
+    margin-bottom: 0 !important;
+  }
   
-  /* Resume Section on Mobile */
+  /* Resume Section on Mobile: strictly contained within screen */
   .resume-section-container {
-    padding: 7rem 1rem 3rem !important;
+    padding: 4.5rem 0.85rem 2rem !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
   .resume-top-banner {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 1.25rem !important;
-    padding: 1.5rem !important;
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
   .resume-hero-name {
-    font-size: 2rem !important;
+    font-size: 1.75rem !important;
   }
   .resume-contact-inline {
     flex-direction: column !important;
@@ -5018,7 +5183,61 @@ div[data-nextjs-route-announcer],
     justify-content: center !important;
   }
   .resume-cards-grid {
-    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    gap: 1rem !important;
+    box-sizing: border-box !important;
+  }
+  .resume-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.25rem 1rem !important;
+    border-radius: 18px !important;
+    box-sizing: border-box !important;
+    grid-column: span 1 !important;
+  }
+  .resume-card.summary-card,
+  .resume-card.skills-card,
+  .resume-card.span-full,
+  .resume-card.education-card,
+  .resume-card.languages-card {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .summary-metrics-row {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+  .timeline-item {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.4rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+  .resume-projects-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .resume-project-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 1rem !important;
+    border-radius: 14px !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+  .resume-project-item .proj-name,
+  .resume-project-item .proj-desc {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
   }
 }
 

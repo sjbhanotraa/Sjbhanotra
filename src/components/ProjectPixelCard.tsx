@@ -78,9 +78,15 @@ export const ProjectPixelCard: React.FC<ProjectPixelCardProps> = ({
 
     if (isAnimating) return;
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
     if (isRevealed) {
       ambientAudio.playClickSound();
-      onOpenProject(item);
+      if (isMobile && item.behanceUrl) {
+        window.open(item.behanceUrl, '_blank', 'noopener,noreferrer');
+      } else {
+        onOpenProject(item);
+      }
       return;
     }
 
@@ -248,12 +254,17 @@ export const ProjectPixelCard: React.FC<ProjectPixelCardProps> = ({
       if (progress < 1) {
         requestAnimationFrame(renderFrame);
       } else {
-        // Pixelation complete: reveal underlying image and open further flow modal
+        // Pixelation complete: reveal underlying image and open further flow (Behance on mobile, modal on desktop)
         setIsAnimating(false);
         setIsRevealed(true);
         setTimeout(() => {
-          onOpenProject(item);
-        }, 120);
+          const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+          if (isMobile && item.behanceUrl) {
+            window.open(item.behanceUrl, '_blank', 'noopener,noreferrer');
+          } else {
+            onOpenProject(item);
+          }
+        }, 150);
       }
     };
 
