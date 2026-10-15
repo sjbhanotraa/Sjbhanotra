@@ -2,10 +2,30 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://sjbhanotra.vercel.app'),
   title: 'Sanjana Sharma — Portfolio Entry Experience',
   description: 'UI/UX Designer · Digital Experiences · Creative Development',
   icons: {
     icon: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Sanjana Sharma — UI/UX Designer & Digital Experiences',
+    description: 'UI/UX Designer · Digital Experiences · Creative Development',
+    url: 'https://sjbhanotra.vercel.app',
+    siteName: 'Sanjana Sharma Portfolio',
+    images: [
+      {
+        url: '/og-image.png',
+        alt: 'Sanjana Sharma — UI/UX Designer',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sanjana Sharma — UI/UX Designer & Digital Experiences',
+    description: 'UI/UX Designer · Digital Experiences · Creative Development',
+    images: ['/og-image.png'],
   },
 };
 

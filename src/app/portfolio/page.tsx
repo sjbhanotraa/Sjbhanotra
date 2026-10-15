@@ -8,6 +8,15 @@ export const dynamic = 'force-dynamic';
 export const metadata = {
   title: 'Sanjana Sharma — Portfolio & Projects',
   description: 'UI/UX Designer · Digital Experiences · Creative Development',
+  openGraph: {
+    title: 'Sanjana Sharma — Portfolio & Projects',
+    description: 'UI/UX Designer · Digital Experiences · Creative Development',
+    images: ['/og-image.png'],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/og-image.png'],
+  },
 };
 
 export default async function PortfolioPage({
