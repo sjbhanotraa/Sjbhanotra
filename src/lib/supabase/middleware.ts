@@ -55,8 +55,10 @@ export async function updateSession(request: NextRequest) {
 
   const hasPortfolioAuthCookie = request.cookies.get('portfolio_auth')?.value === 'true';
 
-  // Route protection: /portfolio is private
-  if (request.nextUrl.pathname.startsWith('/portfolio') && !user && !hasPortfolioAuthCookie) {
+  const isPreview = request.nextUrl.searchParams.get('preview') === 'true';
+
+  // Route protection: /portfolio is private unless preview mode or authenticated
+  if (request.nextUrl.pathname.startsWith('/portfolio') && !user && !hasPortfolioAuthCookie && !isPreview) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
     url.searchParams.set('error', 'unauthorized');
