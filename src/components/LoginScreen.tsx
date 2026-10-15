@@ -10,7 +10,7 @@ interface LoginScreenProps {
 }
 
 export const LoginScreen: React.FC<LoginScreenProps> = ({ onSuccess }) => {
-  const [phoneNumber, setPhoneNumber] = useState(ANIMATION_CONFIG.auth.authorizedPhone);
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

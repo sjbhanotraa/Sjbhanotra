@@ -47,15 +47,16 @@ class AmbientAudioEngine {
     window.addEventListener('keydown', resumeAudio, { once: true, passive: true });
     window.addEventListener('touchstart', resumeAudio, { once: true, passive: true });
 
-    // Global tactile click sound on all buttons and interactive elements
+    // Global tactile click sound on all buttons, links, inputs, and interactive elements
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
       const isInteractive = Boolean(
         target.closest('button') ||
         target.closest('a') ||
-        target.closest('input[type="submit"]') ||
-        target.closest('input[type="button"]') ||
+        target.closest('input') ||
+        target.closest('textarea') ||
+        target.closest('select') ||
         target.closest('[role="button"]') ||
         target.closest('.project-card-link') ||
         target.closest('.cta-explore-btn') ||
@@ -66,6 +67,50 @@ class AmbientAudioEngine {
 
       if (isInteractive) {
         this.playClickSound();
+      }
+    });
+
+    // Global tactile click sound when person types on any text field, number, or textarea
+    let lastTypeSoundTime = 0;
+    const triggerTypeClick = () => {
+      const now = Date.now();
+      if (now - lastTypeSoundTime < 35) return;
+      lastTypeSoundTime = now;
+      this.playTypingSound();
+    };
+
+    document.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const isInputField = Boolean(
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target.closest('input') ||
+        target.closest('textarea') ||
+        target.isContentEditable
+      );
+
+      if (isInputField) {
+        if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape'].includes(e.key)) {
+          return;
+        }
+        triggerTypeClick();
+      }
+    });
+
+    document.addEventListener('input', (e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const isInputField = Boolean(
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target.closest('input') ||
+        target.closest('textarea') ||
+        target.isContentEditable
+      );
+
+      if (isInputField) {
+        triggerTypeClick();
       }
     });
   }
@@ -299,6 +344,62 @@ class AmbientAudioEngine {
 
       thud.start(now);
       thud.stop(now + 0.06);
+    } catch {
+      // Ignore
+    }
+  }
+
+  /**
+   * Play crisp, satisfying tactile click sound when typing into any input, number, or textarea field
+   */
+  public playTypingSound(): void {
+    if (this.isMuted) return;
+    this.ensureRunning();
+    if (!this.ctx) return;
+
+    try {
+      const now = this.ctx.currentTime;
+      // Organic pitch variation so typing feels like physical keyboard switches
+      const pitchShift = 1 + (Math.random() - 0.5) * 0.16;
+
+      // 1. Crisp high-frequency transient click snap
+      const snap = this.ctx.createOscillator();
+      const snapGain = this.ctx.createGain();
+      const snapFilter = this.ctx.createBiquadFilter();
+
+      snapFilter.type = 'bandpass';
+      snapFilter.frequency.setValueAtTime(2200 * pitchShift, now);
+      snapFilter.Q.setValueAtTime(2.2, now);
+
+      snap.type = 'triangle';
+      snap.frequency.setValueAtTime(2000 * pitchShift, now);
+      snap.frequency.exponentialRampToValueAtTime(450 * pitchShift, now + 0.024);
+
+      snapGain.gain.setValueAtTime(0.095, now);
+      snapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.026);
+
+      snap.connect(snapFilter);
+      snapFilter.connect(snapGain);
+      snapGain.connect(this.ctx.destination);
+
+      snap.start(now);
+      snap.stop(now + 0.03);
+
+      // 2. Micro bottom thud for tactile haptic weight
+      const tap = this.ctx.createOscillator();
+      const tapGain = this.ctx.createGain();
+      tap.type = 'sine';
+      tap.frequency.setValueAtTime(280 * pitchShift, now);
+      tap.frequency.exponentialRampToValueAtTime(80, now + 0.028);
+
+      tapGain.gain.setValueAtTime(0.045, now);
+      tapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+
+      tap.connect(tapGain);
+      tapGain.connect(this.ctx.destination);
+
+      tap.start(now);
+      tap.stop(now + 0.035);
     } catch {
       // Ignore
     }
