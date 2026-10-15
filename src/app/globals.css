@@ -501,8 +501,8 @@ input {
   transform: translateX(2px);
 }
 
-/* Explore Main Center Flow */
-.explore-main-center-flow {
+/* Middle Centered Explore CTA Wrapper */
+.cta-explore-middle-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -511,19 +511,12 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Middle Centered Explore CTA Wrapper */
-.cta-explore-middle-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Bottom-Right Floating "Recent Project" Card - desktop fixed, mobile stacked after button */
+/* Bottom-Right Floating "Recent Project" Card - desktop original position */
 .intro-recent-project-card {
-  position: fixed;
+  position: absolute;
   bottom: 2rem;
   right: 2rem;
   z-index: 25;
@@ -544,31 +537,13 @@ input {
 }
 
 @media (max-width: 768px) {
-  .explore-main-center-flow {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.35rem;
-    width: calc(100% - 2.5rem);
-    max-width: 320px;
-    pointer-events: none;
-    z-index: 30;
-  }
-
-  .explore-main-center-flow > * {
-    pointer-events: auto;
-  }
-
   .cta-explore-middle-wrapper {
-    position: static;
-    transform: none;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    position: absolute !important;
+    top: 42% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: auto !important;
+    z-index: 30 !important;
   }
 
   .cta-explore-btn,
@@ -581,16 +556,21 @@ input {
     white-space: nowrap !important;
   }
 
+  /* On mobile: placed directly after/below the button in the vertical flow */
   .intro-recent-project-card {
-    position: static !important;
-    bottom: auto !important;
+    position: absolute !important;
+    top: calc(42% + 48px) !important;
+    left: 50% !important;
     right: auto !important;
-    width: 100% !important;
+    bottom: auto !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 2.5rem) !important;
     max-width: 310px !important;
-    margin: 0 auto !important;
+    margin: 0 !important;
     box-sizing: border-box !important;
     padding: 0.85rem 1rem !important;
     border-radius: 18px !important;
+    z-index: 25 !important;
   }
 }
 
