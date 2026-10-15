@@ -43,5 +43,5 @@ next-env.d.ts
 # scratch
 scratch/
 
-# raw video source folder
-video/
+# raw video source folder in root only
+/video/

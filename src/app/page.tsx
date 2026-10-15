@@ -239,8 +239,15 @@ export default function EntryExperience() {
             <video
               ref={videoRef}
               src="/assets/video/gemini_generated_video_66d8be31.mp4"
+              autoPlay
+              muted={isMuted}
               playsInline
+              preload="auto"
               onTimeUpdate={handleTimeUpdate}
+              onError={() => {
+                console.warn('Video load fallback triggered');
+                triggerBlackout();
+              }}
               className="intro-video-bg"
             />
             {/* Watermark guard overlay to completely conceal any watermark in the bottom corner */}
