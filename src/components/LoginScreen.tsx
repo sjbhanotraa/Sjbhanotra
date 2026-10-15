@@ -96,7 +96,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onSuccess }) => {
               type="tel"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="8803100375"
+              placeholder="Enter the phone number"
               autoComplete="tel"
               required
               className="form-input"
@@ -118,7 +118,7 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onSuccess }) => {
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••••"
+              placeholder="Enter the Password"
               autoComplete="current-password"
               required
               className="form-input"
