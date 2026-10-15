@@ -53,6 +53,7 @@ export const VideoContinuation: React.FC<VideoContinuationProps> = ({ children }
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        background: '#000000',
       }}
     >
       {/* 4K Terrain Landscape Video absolutely positioned to fill background */}
@@ -73,17 +74,6 @@ export const VideoContinuation: React.FC<VideoContinuationProps> = ({ children }
         muted
         loop
         preload="auto"
-      />
-
-      {/* Atmospheric vignette blending the edges of the video into #CACDD2 background */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          pointerEvents: 'none',
-          boxShadow: 'inset 0 0 140px 60px #CACDD2',
-          zIndex: 2,
-        }}
       />
 
       {/* Login Form perfectly centered and floating in the middle above video */}

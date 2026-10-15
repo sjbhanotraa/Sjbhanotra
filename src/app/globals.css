@@ -144,6 +144,36 @@ input {
   }
 }
 
+.editorial-hud-white .hud-label {
+  color: #FFFFFF !important;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.95);
+}
+
+.editorial-hud-white .hud-center-code {
+  color: #FFFFFF !important;
+  opacity: 0.95;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.95);
+}
+
+.editorial-hud-white .hud-indicator-dot {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.9) !important;
+}
+
+.editorial-hud-white .static-hud-mute-btn {
+  background: rgba(14, 16, 22, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.editorial-hud-white .static-hud-mute-btn:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
 .hud-top {
   display: flex;
   justify-content: space-between;
@@ -253,7 +283,7 @@ input {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #CACDD2;
+  background: #000000;
   z-index: 1;
 }
 
@@ -261,23 +291,8 @@ input {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Scaled up by 18% and shifted upward by 3% to completely push bottom AI watermark out of view */
-  transform: scale(1.18) translateY(-3%);
-  transform-origin: center center;
   display: block;
   pointer-events: none;
-}
-
-/* Guard overlay to ensure zero visible watermark in the bottom area */
-.intro-video-watermark-guard {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 90px;
-  background: linear-gradient(to top, rgba(20, 22, 26, 0.4) 0%, transparent 100%);
-  pointer-events: none;
-  z-index: 5;
 }
 
 /* ==========================================================================
@@ -490,7 +505,7 @@ input {
   gap: 0.45rem;
   font-size: 0.675rem;
   font-weight: 600;
-  color: #E07A5F;
+  color: #FFFFFF !important;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -499,8 +514,8 @@ input {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #E07A5F;
-  box-shadow: 0 0 8px #E07A5F;
+  background: #FFFFFF !important;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9) !important;
 }
 
 .recent-card-body {
@@ -516,7 +531,7 @@ input {
   overflow: hidden;
   background: #111;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .recent-thumb-img {
@@ -535,7 +550,7 @@ input {
 .recent-card-title {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
@@ -545,7 +560,7 @@ input {
 
 .recent-card-tag {
   font-size: 0.725rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85) !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -558,9 +573,9 @@ input {
   width: 100%;
   padding: 0.45rem 0.85rem;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF !important;
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
@@ -568,9 +583,9 @@ input {
 }
 
 .recent-card-cta:hover {
-  background: rgba(224, 122, 95, 0.2);
-  border-color: #E07A5F;
-  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .intro-exiting {
@@ -580,7 +595,7 @@ input {
   transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s ease;
 }
 
-/* Primary CTA Button: "Let's Explore" */
+/* Primary CTA Button: "Let's Explore" with Crisp Pure White Text */
 .cta-explore-btn {
   pointer-events: auto;
   position: relative;
@@ -590,19 +605,18 @@ input {
   gap: 0.875rem;
   padding: 0.9rem 2.25rem;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: rgba(14, 16, 22, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   box-shadow: 
-    0 4px 20px -2px rgba(23, 25, 28, 0.06),
-    0 1px 3px 0 rgba(23, 25, 28, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9);
-  color: var(--text-primary);
+    0 8px 30px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  color: #FFFFFF !important;
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   transition: all var(--transition-normal);
   user-select: none;
 }
@@ -610,37 +624,39 @@ input {
 .cta-explore-btn-middle {
   padding: 1.15rem 2.85rem;
   font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  background: rgba(255, 255, 255, 0.78);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #FFFFFF !important;
+  background: rgba(14, 16, 22, 0.68);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 
-    0 14px 40px -4px rgba(23, 25, 28, 0.18),
-    0 4px 16px rgba(249, 115, 22, 0.28),
-    inset 0 1px 2px rgba(255, 255, 255, 1);
+    0 16px 45px -4px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(255, 255, 255, 0.16),
+    inset 0 1px 2px rgba(255, 255, 255, 0.55);
 }
 
 .cta-explore-btn-middle:hover {
-  background: #FFFFFF;
+  background: rgba(255, 255, 255, 0.22);
+  color: #FFFFFF !important;
   transform: translateY(-3px) scale(1.04);
-  border-color: #E07A5F;
+  border-color: #FFFFFF;
   box-shadow: 
-    0 20px 50px -4px rgba(224, 122, 95, 0.45),
-    0 6px 18px rgba(23, 25, 28, 0.14),
-    0 0 32px rgba(249, 115, 22, 0.32);
+    0 24px 55px -4px rgba(0, 0, 0, 0.8),
+    0 0 35px rgba(255, 255, 255, 0.4),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .cta-explore-btn:hover {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
-  border-color: var(--accent-orange);
+  border-color: #FFFFFF;
   box-shadow: 
-    0 12px 30px -4px rgba(224, 122, 95, 0.22),
-    0 4px 10px 0 rgba(23, 25, 28, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
-  color: var(--text-primary);
+    0 14px 35px rgba(0, 0, 0, 0.5),
+    0 0 25px rgba(255, 255, 255, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  color: #FFFFFF !important;
 }
 
 .cta-explore-btn:active {
@@ -651,7 +667,7 @@ input {
   width: 14px;
   height: 14px;
   transition: transform var(--transition-fast);
-  color: var(--accent-orange);
+  color: #FFFFFF !important;
 }
 
 .cta-explore-btn:hover .cta-arrow-icon {

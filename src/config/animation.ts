@@ -67,9 +67,9 @@ export const ANIMATION_CONFIG: AnimationConfig = {
     cellSpreadScale: 1.05,
   },
   continuation: {
-    videoSrc: '/assets/video/12676832_3840_2160_30fps.mp4',
+    videoSrc: '/assets/video/8679951-uhd_4096_2160_25fps.mp4',
     splitTimestamp: 0.0,
-    endTimestamp: 20.0,
+    endTimestamp: 32.0,
     playbackRate: 1.0,
     autoTransitionDelay: 500,
   },
