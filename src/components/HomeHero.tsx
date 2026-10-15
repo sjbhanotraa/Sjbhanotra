@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight, MessageSquare } from 'lucide-react';
 import { ANIMATION_CONFIG } from '@/config/animation';
 import { ambientAudio } from '@/lib/ambient-sound';
 
@@ -46,15 +46,18 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onExploreProjects }) => {
             <ArrowUpRight size={16} className="hero-btn-icon" />
           </button>
 
-          {/* Secondary CTA: Get In Touch */}
+          {/* Secondary CTA: Get In Touch (WhatsApp Chat) */}
           <a
-            href="mailto:sanjana19122001@gmail.com"
+            href="https://wa.me/919682636699?text=Hi%20Sanjana%2C%20I%20would%20like%20to%20discuss%20a%20project"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => ambientAudio.playClickSound()}
             onMouseEnter={() => ambientAudio.playHoverSound()}
             className="hero-secondary-btn"
-            aria-label="Get In Touch - Inquire for collaboration"
+            aria-label="Get In Touch - Chat on WhatsApp"
           >
             <span>Get In Touch</span>
-            <Sparkles size={14} className="hero-btn-icon" />
+            <MessageSquare size={14} className="hero-btn-icon" style={{ color: '#25D366' }} />
           </a>
         </div>
       </div>
